@@ -1,5 +1,4 @@
 const express = require('express');
-const Model = require('../model/model');
 const { error } = require('console');
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
@@ -13,8 +12,6 @@ router.get('/getOne/:league/:home', async (req, res) => {
         const database = client.db('fbref');
         const league = database.collection(req.params.league);
         const data = await league.findOne({ HomeTeam: req.params.home });
-        console.log(req.params.league);
-        console.log(req.params.home);
         res.json(data);
     }
     catch (error) {
@@ -26,8 +23,6 @@ router.get('/getAll', async (req, res) => {
     try {
         const database = client.db('fbref');
         const league = database.collection('BundesLiga');
-
-        // Query for a movie that has the title 'Back to the Future'
         const query = { HomeTeam: 'wolfsburg' };
         const data = await league.findOne(query);
         res.json(data);
